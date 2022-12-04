@@ -26,5 +26,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
     path('post/', include('blog.urls')),
-    # path('auth/', obtain_auth_token)
+    path('auth/', obtain_auth_token)
 ]

@@ -1,4 +1,6 @@
-from ckeditor.fields import RichTextField
+from django.db import models
+
+# Create your models here.
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -16,7 +18,6 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200)
     title_tag = models.CharField(max_length=200, null=True, blank=True)
-    # post_image = models.ImageField(blank=True, null=True, upload_to="images/")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
@@ -48,5 +49,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
-
-

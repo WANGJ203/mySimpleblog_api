@@ -40,10 +40,15 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 ]
 
+# AllowAny权限类将允许不受限制的访问，而不管该请求是否已通过身份验证或未经身份验证。
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny',
-    ]
+                                   ]
 }
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',  # you can create token somewhere
+#                                    ]
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

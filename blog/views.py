@@ -95,13 +95,13 @@ def post_detail(request, pk):
     #
     # 4  更改单个对象的信息，或者update 信息
     elif request.method == 'PUT':
-        # if request.user == post.author:
-        serializer = PostSerializer(post, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            # return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # return Response("You do not have permission ")
+        if request.user == post.author:
+            serializer = PostSerializer(post, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                # return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response("You do not have permission ")
     #
     # 5 删除单个对象的信息
     elif request.method == 'DELETE':
@@ -111,18 +111,27 @@ def post_detail(request, pk):
 
 #
 #
-# modle view class
+# model view class
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    # authentication_classes = (TokenAuthentication,)
-    # # permission_classes = (IsAuthenticated, IsAuthorOrReadOnly,)
-    # permission_classes = (IsAuthenticated, IsAuthor,)
+    authentication_classes = (TokenAuthentication,)
+    # permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated, IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthenticated, IsAuthor,)
+
+    # def create(self, request, *args, **kwargs):
+    #     pass
+
+    # def update(self, request, *args, **kwargs):
+    #     if request.user.is_superuser:
+
+
 #
 #
 # # token is not enough for fundamental view methods
 # # we need to create our own token
 #
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

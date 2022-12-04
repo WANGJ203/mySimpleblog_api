@@ -22,12 +22,13 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True, required=False)
 
-    class Meta:
+    class Meta:  # we can rewrite the class
         model = User
         fields = ['id', 'username', 'password', 'groups']
 
+        # something for security " key word arguments"=kwargs
         extra_kwargs = {'password': {
-            'write_only': True,
+            'write_only': True,  # we can set password, but we can't see the password'
             'required': True,
         }}
 
@@ -36,6 +37,6 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         # 创建完新用户可以自动登录,自动生成token
         Token.objects.create(user=user)
-        # add use to  a group by group ID
+        # add use to  a group by group ID, can not by group name
         user.groups.add(1)
         return user
