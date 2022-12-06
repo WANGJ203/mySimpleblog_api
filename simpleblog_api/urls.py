@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
 from blog import urls
+from blog.views import User_logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
     path('post/', include('blog.urls')),
-    path('auth/', obtain_auth_token)
+    path('auth/', obtain_auth_token),
+    path('auth/logout/', User_logout)
 ]
