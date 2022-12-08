@@ -12,9 +12,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from blog.models import Post
+from blog.models import Post, Category
 from blog.permissions import IsAuthorOrReadOnly, IsAuthor
-from blog.serializers import PostSerializer, UserSerializer
+from blog.serializers import PostSerializer, UserSerializer, CategorySerializer
 
 
 def index(request):
@@ -120,7 +120,7 @@ class PostViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     # permission_classes = (IsAuthenticated,)
     # permission_classes = (IsAuthenticated, IsAuthorOrReadOnly,)
-    permission_classes = (IsAuthenticated, IsAuthor,)
+    # permission_classes = (IsAuthenticated, IsAuthor,)
 
     # def create(self, request, *args, **kwargs):
     #     pass
@@ -147,3 +147,8 @@ def User_logout(request):
     request.user.auth_token.delete()
     logout(request)
     return Response('User Logged out successfully')
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

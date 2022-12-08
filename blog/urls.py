@@ -2,14 +2,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from blog.views import index, post_list, post_detail, PostViewSet, UserViewSet
+from blog.views import index, post_list, post_detail, PostViewSet, UserViewSet, CategoryViewSet
 
 # post_list, post_detail, PostViewSet, UserViewSet
 
 router = DefaultRouter()
 
 router.register('post_viewSet', PostViewSet, 'post_model_viewSet')
-router.register('users', UserViewSet, 'users')
+router.register('users', UserViewSet, 'users_viewSet')
+router.register('category', CategoryViewSet, 'category_viewSet')
 
 urlpatterns = [
     # for api_view function base view
