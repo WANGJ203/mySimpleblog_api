@@ -78,7 +78,7 @@ def post_list(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.http.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #
@@ -118,6 +118,7 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     authentication_classes = (TokenAuthentication,)
+
     # permission_classes = (IsAuthenticated,)
     # permission_classes = (IsAuthenticated, IsAuthorOrReadOnly,)
     # permission_classes = (IsAuthenticated, IsAuthor,)
@@ -127,6 +128,19 @@ class PostViewSet(viewsets.ModelViewSet):
 
     # def update(self, request, *args, **kwargs):
     #     if request.user.is_superuser:
+
+    def create(self, request, *args, **kwargs):
+        title = request.data["title"]
+        author = request.user
+        body = request.data["body"]
+        category = request.data["category"]
+        try:
+            post = Post.objects.create(title=title, author=author, body=body, category_id=category)
+            post.save()
+            serializer = PostSerializer(post)
+            return Response(serializer.data)
+        except:
+            return Response(serializer.errors)
 
 
 #
