@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
 from blog import urls
-from blog.views import User_logout
+from blog.views import User_logout, User_ID_Search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,5 @@ urlpatterns = [
 
     path('post/', include('blog.urls')),
     path('auth/', obtain_auth_token),
-    path('auth/logout/', User_logout)
+    path('auth/logout/', User_logout),
 ]

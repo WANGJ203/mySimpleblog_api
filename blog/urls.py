@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from blog.views import index, post_list, post_detail, PostViewSet, UserViewSet, CategoryViewSet
+from blog.views import index, post_list, post_detail, PostViewSet, UserViewSet, CategoryViewSet, User_ID_Search
 
 # post_list, post_detail, PostViewSet, UserViewSet
 
@@ -19,5 +19,7 @@ urlpatterns = [
     path('posts/<int:pk>/', post_detail),
     # model_view
     path('api-auth/', include('rest_framework.urls')),
+
+    path('user_id_search/', User_ID_Search),
 ]
 urlpatterns += router.urls

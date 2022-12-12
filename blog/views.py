@@ -166,3 +166,11 @@ def User_logout(request):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+# get user id
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def User_ID_Search(request):
+    return Response({"user_id": request.user.id})
